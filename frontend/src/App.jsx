@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
+import CategoryFilter from "./components/CategoryFilter";
 import ProductList from "./components/ProductList";
 import { obtenerProductos, obtenerCategorias } from "./services/api";
 
 function App() {
-  const [categoriaSeleccionada] = useState("Todas");
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todas");
   const [productos, setProductos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -31,6 +32,7 @@ function App() {
   return (
     <div className="min-h-screen bg-[#090909]">
       <Header />
+      <CategoryFilter categorias={categorias} categoriaSeleccionada={categoriaSeleccionada} onCategoriaChange={setCategoriaSeleccionada} />
       {cargando ? (
         <div className="mx-auto max-w-7xl px-6 py-10 text-center font-semibold text-[#FF6A00]">Cargando información...</div>
       ) : error ? (
