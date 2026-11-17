@@ -1,0 +1,21 @@
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Python / Django
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+.env
+db.sqlite3-journal
+
+# Node
+node_modules/
+dist/
+*.log
