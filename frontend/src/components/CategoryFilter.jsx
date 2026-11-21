@@ -14,7 +14,7 @@ function CategoryFilter({ categorias, categoriaSeleccionada, onCategoriaChange }
         <p className="mt-3 max-w-xl text-sm leading-relaxed tracking-wide text-gray-400">Encuentra la tecnología que necesitas. Explora nuestra selección de laptops, accesorios y componentes.</p>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap justify-center gap-3 md:justify-start">
         <Button type="button" onClick={() => onCategoriaChange("Todas")} aria-pressed={categoriaSeleccionada === "Todas"} className={estiloBoton(categoriaSeleccionada === "Todas")}>
           <span className={`h-2 w-2 rounded-full ${categoriaSeleccionada === "Todas" ? "bg-white" : "bg-[#FF6A00] group-hover:bg-white"}`} />
           Todas
