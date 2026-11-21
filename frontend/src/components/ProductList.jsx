@@ -98,6 +98,7 @@ function ProductList({ productos, categoriaSeleccionada }) {
               imagen={producto.imagen}
               categoria={producto.categoria}
               cantidadDisponible={producto.cantidad_disponible}
+              descuentoPorcentaje={producto.descuento_porcentaje}
             />
           ))}
         </div>

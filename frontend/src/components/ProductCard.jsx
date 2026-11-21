@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 
-function ProductCard({ nombre, descripcion, precio, imagen, categoria, cantidadDisponible }) {
+function ProductCard({ nombre, descripcion, precio, imagen, categoria, cantidadDisponible, descuentoPorcentaje = 0 }) {
   const stock = Number(cantidadDisponible) || 0;
+  const descuento = Number(descuentoPorcentaje) || 0;
+  const precioOriginal = Number(precio) || 0;
+  const precioFinal = precioOriginal * (1 - descuento / 100);
 
   const estadoStock = stock === 0
     ? { texto: "Agotado", color: "border-red-500/20 bg-red-500/10 text-red-400", punto: "bg-red-400" }
@@ -28,6 +31,12 @@ function ProductCard({ nombre, descripcion, precio, imagen, categoria, cantidadD
           <span>✦</span> Selección premium
         </div>
 
+        {descuento > 0 && (
+          <div className="absolute right-4 top-4 z-20 rounded-md bg-red-600 px-3 py-2 text-xs font-black text-white shadow-lg">
+            -{descuento}% OFF
+          </div>
+        )}
+
         <div className="absolute bottom-4 right-4 z-10 rounded-md bg-[#171717] px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider text-white shadow-lg">
           LAPTIVOX
         </div>
@@ -44,9 +53,7 @@ function ProductCard({ nombre, descripcion, precio, imagen, categoria, cantidadD
           {nombre}
         </h3>
 
-        <p className="mt-2 line-clamp-3 min-h-[4.5rem] text-center text-sm leading-6 text-gray-400">
-          {descripcion}
-        </p>
+        <p className="mt-2 line-clamp-3 min-h-[4.5rem] text-center text-sm leading-6 text-gray-400">{descripcion}</p>
 
         <div className="mt-auto">
           <div className="mb-4 mt-5 border-t border-[#383838] pt-4">
@@ -55,10 +62,11 @@ function ProductCard({ nombre, descripcion, precio, imagen, categoria, cantidadD
               <span className="text-[9px] font-bold uppercase tracking-wider text-gray-600">PEN / SOLES</span>
             </div>
 
-            <div className="flex items-center justify-between gap-2">
-              <p className="font-heading text-2xl font-black tracking-tight text-[#FF6A00]">
-                S/ {Number(precio).toLocaleString("es-PE", { minimumFractionDigits: 2 })}
-              </p>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                {descuento > 0 && <p className="text-sm font-bold text-gray-500 line-through">S/ {precioOriginal.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
+                <p className="font-heading text-2xl font-black tracking-tight text-[#FF6A00]">S/ {precioFinal.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+              </div>
 
               <span className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2.5 py-2 text-[9px] font-bold uppercase tracking-wide ${estadoStock.color}`}>
                 <span className={`h-1.5 w-1.5 rounded-full ${estadoStock.punto} ${stock > 0 ? "animate-pulse" : ""}`}></span>
@@ -74,10 +82,7 @@ function ProductCard({ nombre, descripcion, precio, imagen, categoria, cantidadD
             </span>
           </div>
 
-          <Button
-            disabled={stock === 0}
-            className="group/button relative w-full overflow-hidden rounded-xl border border-[#FF6A00]/40 bg-[#FF6A00] py-5 text-sm font-black text-white shadow-lg shadow-orange-600/10 transition-all duration-300 hover:border-[#FF8533] hover:bg-[#E65F00] hover:shadow-[0_5px_25px_rgba(255,106,0,0.25)] disabled:cursor-not-allowed disabled:border-gray-700 disabled:bg-gray-700 disabled:text-gray-400 disabled:shadow-none"
-          >
+          <Button disabled={stock === 0} className="group/button relative w-full overflow-hidden rounded-xl border border-[#FF6A00]/40 bg-[#FF6A00] py-5 text-sm font-black text-white shadow-lg shadow-orange-600/10 transition-all duration-300 hover:border-[#FF8533] hover:bg-[#E65F00] hover:shadow-[0_5px_25px_rgba(255,106,0,0.25)] disabled:cursor-not-allowed disabled:border-gray-700 disabled:bg-gray-700 disabled:text-gray-400 disabled:shadow-none">
             <span className="relative z-10 flex items-center justify-center gap-2">
               {stock > 0 ? "Ver producto" : "Producto agotado"}
               {stock > 0 && <span className="text-lg transition-transform duration-300 group-hover/button:translate-x-1.5">→</span>}
