@@ -144,7 +144,7 @@ function ProductList({ productos, categoriaSeleccionada }) {
 
           <div className="relative mx-auto grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-2">
             {recomendaciones.map(({ producto, precio, descuento, stock, ahorro, motivo }, indice) => (
-              <article key={`recomendado-${producto.id}`} className="group relative flex gap-4 overflow-hidden rounded-2xl border border-[#383838] bg-gradient-to-br from-[#181818] to-[#121212] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#FF6A00]/60 hover:shadow-[0_14px_40px_rgba(255,106,0,0.14)] sm:p-4">
+              <article key={`recomendado-${producto.id}`} className={`group relative flex gap-4 overflow-hidden rounded-2xl border border-[#383838] bg-gradient-to-br from-[#181818] to-[#121212] p-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-[#FF6A00]/60 hover:shadow-[0_14px_40px_rgba(255,106,0,0.14)] sm:p-4 ${recomendaciones.length % 2 !== 0 && indice === recomendaciones.length - 1 ? "md:col-span-2 md:w-[calc(50%-0.625rem)] md:justify-self-center" : ""}`}>
                 <div className="absolute left-0 top-0 h-full w-[3px] bg-[#FF6A00]/0 transition-colors duration-300 group-hover:bg-[#FF6A00]"></div>
                 <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[#FF6A00]/[0.05] blur-2xl transition-all duration-500 group-hover:bg-[#FF6A00]/10"></div>
 
